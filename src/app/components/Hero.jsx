@@ -138,8 +138,8 @@ export function Hero() {
 	];
 
 	return (
-		<section ref={heroRef} className="min-h-screen relative overflow-hidden">
-			<div className="relative z-10 min-h-screen flex flex-col">
+		<section ref={heroRef} className="min-h-screen relative overflow-hidden px-2 sm:px-4 md:px-6">
+			<div className="relative z-10 min-h-screen flex flex-col w-full">
 				{/* Top Section - Navigation & Status */}
 				<div className="flex justify-between items-start p-4 sm:p-6 lg:p-8 xl:p-12">
 					<div ref={subtitleRef} className="flex items-center gap-1.5 sm:gap-2 lg:gap-3">
@@ -158,19 +158,19 @@ export function Hero() {
 
 				{/* Main Content Area */}
 				<div className="flex-1 flex items-center">
-					<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-						<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+					<div className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12">
+						<div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-center">
 							{/* Left Column - Main Content */}
 							<div className="lg:col-span-8 space-y-6 sm:space-y-8">
 								{/* Greeting */}
-								<div ref={titleRef} className="space-y-4 pt-8 md:pt-0 text-center md:text-left">
+								<div ref={titleRef} className="space-y-2 pt-6 sm:pt-8 md:pt-0 text-center md:text-left">
 									<div className="text-slate-700 dark:text-white/80 text-lg sm:text-xl font-light">Hello, I'm</div>
-									<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-none">
+									<h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-none">
 										<span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-blue-100 dark:to-white bg-clip-text text-transparent animate-pulse">
 											Deepak
 										</span>
 									</h1>
-									<div className="flex flex-wrap gap-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold justify-center md:justify-start">
+									<div className="flex flex-wrap gap-1 sm:gap-2 text-base sm:text-lg md:text-2xl lg:text-3xl font-bold justify-center md:justify-start">
 										<span className="text-blue-600 dark:text-blue-400">UI/UX</span>
 										<span className="text-slate-900 dark:text-white">+</span>
 										<span className="text-purple-600 dark:text-purple-400">React</span>
@@ -227,10 +227,10 @@ export function Hero() {
 							</div>
 
 							{/* Right Column - Profile Image */}
-							<div className="lg:col-span-4 relative">
+							<div className="lg:col-span-4 relative mt-8 lg:mt-0">
 								{/* Profile Image */}
 								<div
-									className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-96 lg:h-96 xl:w-[420px] xl:h-[420px] mx-auto group/image"
+									className="relative w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-[340px] xl:h-[340px] mx-auto group/image"
 									onMouseEnter={() => {
 										// Only animate skills on md+ screens
 										if (window.innerWidth >= 768) {

@@ -98,31 +98,31 @@ export function Skills() {
 					</p>
 				</div>
 
-				<div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8 mb-16">
+				<div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16">
 					{skills.map((skill, index) => (
 						<div
 							key={index}
 							className="group flex flex-col items-center text-center"
 							ref={el => (skillsRef.current[index] = el)}
 						>
-							<div className="w-16 h-16 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 flex items-center justify-center mb-3 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl hover:bg-white dark:hover:bg-slate-700">
+							<div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 flex items-center justify-center mb-2 sm:mb-3 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl hover:bg-white dark:hover:bg-slate-700">
 								<skill.icon className={`w-8 h-8 ${skill.color}`} />
 							</div>
-							<span className="text-sm font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
+							<span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
 						</div>
 					))}
 				</div>
 
 				{/* Currently Learning Section */}
-				<div className="text-center">
+				<div className="text-center mt-8">
 					<h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-8">Currently Learning</h3>
 					<div className="flex justify-center gap-8">
 						{learningSkills.map((skill, index) => (
 							<div key={index} className="group flex flex-col items-center text-center">
-								<div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 backdrop-blur-sm flex items-center justify-center mb-3 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-dashed border-slate-400 dark:border-slate-500">
+								<div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 backdrop-blur-sm flex items-center justify-center mb-2 sm:mb-3 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-dashed border-slate-400 dark:border-slate-500">
 									<skill.icon className={`w-8 h-8 ${skill.color}`} />
 								</div>
-								<span className="text-sm font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
+								<span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
 								<span className="text-xs text-slate-500 dark:text-slate-400 mt-1">In Progress</span>
 							</div>
 						))}

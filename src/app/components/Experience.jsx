@@ -272,7 +272,7 @@ export function Experience() {
 
 									{/* Experience Card */}
 									<div
-										className={`w-full max-w-lg ${isLeft ? 'mr-8' : 'ml-8'} transform transition-all duration-500 hover:scale-105`}
+										className={`w-full max-w-xs sm:max-w-md md:max-w-lg ${isLeft ? 'mr-2 sm:mr-8' : 'ml-2 sm:ml-8'} transform transition-all duration-500 hover:scale-105`}
 									>
 										<div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-2xl shadow-slate-900/10 hover:shadow-3xl hover:shadow-slate-900/20 transition-all duration-500">
 											<div className="card-content">

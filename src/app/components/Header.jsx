@@ -223,18 +223,9 @@ export function Header() {
 	return (
 		<header
 			ref={headerRef}
-			className="fixed top-0 left-0 right-0 z-50 md:top-4 md:left-1/2 md:right-auto md:transform md:-translate-x-1/2 mb-2 md:mb-0"
-			style={{
-				backdropFilter: 'blur(20px)',
-				backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-				boxShadow: theme === 'dark' ? '0 8px 32px rgba(15, 23, 42, 0.3)' : '0 8px 32px rgba(0, 0, 0, 0.1)',
-				borderRadius: window.innerWidth >= 768 ? '24px' : '0px',
-				border: theme === 'dark' ? '1px solid rgba(51, 65, 85, 0.3)' : '1px solid rgba(0, 0, 0, 0.1)',
-				maxWidth: window.innerWidth >= 768 ? 'calc(100% - 32px)' : '100%',
-				width: window.innerWidth >= 768 ? 'fit-content' : '100%'
-			}}
+			className="fixed top-0 left-0 right-0 z-50 md:top-4 md:left-1/2 md:right-auto md:transform md:-translate-x-1/2 mb-2 md:mb-0 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 shadow-lg border border-slate-200/70 dark:border-slate-800/70 rounded-none md:rounded-2xl lg:rounded-3xl max-w-full md:max-w-[98vw] lg:max-w-[90vw] w-full md:w-fit px-0 sm:px-2 md:px-4"
 		>
-			<div className="px-6 py-4 flex items-center justify-between gap-8">
+			<div className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-6 md:gap-8 w-full">
 				{/* Logo */}
 				<button
 					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -302,37 +293,13 @@ export function Header() {
 			{isMenuOpen && (
 				<div
 					onClick={() => setIsMenuOpen(false)}
-					className="md:hidden fixed inset-0 z-40"
-					style={{
-						backgroundColor: theme === 'dark' ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.22)'
-					}}
+					className={`md:hidden fixed inset-0 z-40 ${theme === 'dark' ? 'bg-black/45' : 'bg-black/20'}`}
 				></div>
 			)}
 			<div
 				ref={mobileMenuRef}
-				className="md:hidden absolute top-full left-0 right-0 w-full z-50"
-				style={{
-					height: 0,
-					opacity: 0,
-					backdropFilter: 'none',
-					backgroundColor: theme === 'dark' ? 'rgba(8, 12, 20, 0.98)' : 'rgba(255, 255, 255, 1)',
-					boxShadow:
-						window.innerWidth >= 768
-							? theme === 'dark'
-								? '0 8px 32px rgba(15, 23, 42, 0.3)'
-								: '0 8px 32px rgba(0, 0, 0, 0.08)'
-							: theme === 'dark'
-								? '0 6px 24px rgba(0,0,0,0.28)'
-								: '0 6px 24px rgba(0,0,0,0.06)',
-					borderRadius: window.innerWidth >= 768 ? '24px' : '0px',
-					borderTop:
-						window.innerWidth >= 768
-							? theme === 'dark'
-								? '1px solid rgba(51, 65, 85, 0.3)'
-								: '1px solid rgba(0, 0, 0, 0.06)'
-							: 'none',
-					margin: window.innerWidth >= 768 ? '8px 16px' : '0px'
-				}}
+				className="md:hidden absolute top-full left-0 right-0 w-screen z-50 bg-white dark:bg-slate-900 shadow-lg border-t border-slate-200 dark:border-slate-800 rounded-none md:rounded-2xl"
+				style={{ height: 0, opacity: 0, backdropFilter: 'none' }}
 			>
 				<div className="px-6 py-6">
 					<nav className="flex flex-col space-y-2">

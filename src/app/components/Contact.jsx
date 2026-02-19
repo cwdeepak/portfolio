@@ -62,9 +62,9 @@ export function Contact() {
 		<section
 			ref={sectionRef}
 			id="contact"
-			className="py-20 sm:py-32 pb-12 sm:pb-20 px-4 sm:px-6 text-slate-900 dark:text-white relative overflow-hidden"
+			className="py-16 sm:py-24 md:py-32 pb-8 sm:pb-16 px-2 sm:px-4 md:px-6 text-slate-900 dark:text-white relative overflow-hidden"
 		>
-			<div className="max-w-7xl mx-auto relative z-10">
+			<div className="max-w-7xl mx-auto relative z-10 w-full">
 				{/* Header Section */}
 				<div ref={headingRef} className="text-center mb-16 sm:mb-24">
 					<div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/30 rounded-full text-emerald-400 text-sm tracking-wider uppercase mb-8">
@@ -104,7 +104,10 @@ export function Contact() {
 				</div>
 
 				{/* Info Grid */}
-				<div ref={infoRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16">
+				<div
+					ref={infoRef}
+					className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-10 sm:mb-16"
+				>
 					<div className="group relative h-full">
 						<div className="absolute inset-0 bg-gradient-to-br from-slate-200/20 to-slate-300/20 dark:from-slate-600/20 dark:to-slate-800/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
 						<div className="relative h-full p-6 rounded-2xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-300/50 dark:border-slate-700/50 hover:border-slate-400 dark:hover:border-slate-600 transition-all duration-300 hover:bg-white/60 dark:hover:bg-slate-900/60 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:shadow-slate-500/10 flex flex-col">

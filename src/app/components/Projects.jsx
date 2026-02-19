@@ -44,7 +44,7 @@ export function Projects() {
 			image: p3,
 			year: '2026',
 			tags: ['React', 'Tailwind', 'Vibe Coding', 'GSAP'],
-			github: '#',
+			github: 'https://github.com/cwdeepak/portfolio.git',
 			demo: '#',
 			color: 'from-pink-500 to-orange-600'
 		}
@@ -160,8 +160,12 @@ export function Projects() {
 	}, []);
 
 	return (
-		<section id="work" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden" ref={sectionRef}>
-			<div className="max-w-7xl mx-auto relative z-10">
+		<section
+			id="work"
+			className="py-16 sm:py-24 md:py-32 px-2 sm:px-4 md:px-6 relative overflow-hidden"
+			ref={sectionRef}
+		>
+			<div className="max-w-7xl mx-auto relative z-10 w-full">
 				{/* Enhanced Header */}
 				<div ref={headerRef} className="text-center mb-16 sm:mb-24">
 					<div className="badge inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 border border-blue-200/50 dark:border-blue-800/50 rounded-full text-sm tracking-widest text-blue-600 dark:text-blue-400 uppercase mb-6 backdrop-blur-sm">
@@ -179,22 +183,22 @@ export function Projects() {
 				</div>
 
 				{/* Projects Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
 					{projects.map((project, index) => {
 						const IconComponent = project.icon;
 
 						return (
 							<div
 								key={index}
-								className="group relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-2xl shadow-slate-900/10 hover:shadow-3xl hover:shadow-slate-900/20 transition-all duration-500 overflow-hidden cursor-pointer"
+								className="group relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-2xl shadow-slate-900/10 hover:shadow-3xl hover:shadow-slate-900/20 transition-all duration-500 overflow-hidden cursor-pointer"
 								ref={el => (projectsRef.current[index] = el)}
 							>
 								{/* Project Image */}
-								<div className="project-image relative aspect-[4/3] overflow-hidden">
+								<div className="project-image relative aspect-[4/3] overflow-hidden min-h-[180px] sm:min-h-[220px] md:min-h-[240px]">
 									<ImageWithFallback
 										src={project.image}
 										alt={project.title}
-										className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+										className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 rounded-xl"
 									/>
 									<div className="project-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300"></div>
 
@@ -205,17 +209,17 @@ export function Projects() {
 								</div>
 
 								{/* Project Content */}
-								<div className="project-content p-6 sm:p-8">
-									<h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+								<div className="project-content p-4 sm:p-6 md:p-8">
+									<h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
 										{project.title}
 									</h3>
 
-									<p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
+									<p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm md:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3">
 										{project.description}
 									</p>
 
 									{/* Tags */}
-									<div className="flex flex-wrap gap-2 mb-6">
+									<div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
 										{project.tags.map((tag, tagIndex) => (
 											<span
 												key={tagIndex}
@@ -227,7 +231,7 @@ export function Projects() {
 									</div>
 
 									{/* Links */}
-									<div className="project-links flex gap-3">
+									<div className="project-links flex flex-col sm:flex-row gap-2 sm:gap-3">
 										<a
 											href={project.github}
 											target="blank"
@@ -252,7 +256,7 @@ export function Projects() {
 				</div>
 
 				{/* Call to Action */}
-				<div className="text-center mt-20 sm:mt-32">
+				<div className="text-center mt-12 sm:mt-20 md:mt-32">
 					<a
 						href="https://github.com/cwdeepak"
 						target="_blank"
