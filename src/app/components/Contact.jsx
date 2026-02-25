@@ -8,7 +8,7 @@ import {
 	FiMapPin,
 	FiMessageCircle
 } from 'react-icons/fi';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -27,13 +27,13 @@ export function Contact() {
 				gsap.from(headingRef.current.children, {
 					scrollTrigger: {
 						trigger: sectionRef.current,
-						start: 'top 85%'
+						start: 'top 85%',
+						once: true
 					},
 					y: 40,
 					opacity: 0,
-					duration: 0.8,
-					stagger: 0.1,
-					ease: 'power3.out'
+					duration: 0.5,
+					stagger: 0.08
 				});
 			}
 
@@ -43,14 +43,14 @@ export function Contact() {
 				gsap.from(infoRef.current.children, {
 					scrollTrigger: {
 						trigger: infoRef.current,
-						start: 'top 95%'
+						start: 'top 95%',
+						once: true
 					},
-					y: 30,
+					y: 24,
 					opacity: 0,
 					scale: 0.98,
-					duration: 0.6,
-					stagger: 0.1,
-					ease: 'power2.out'
+					duration: 0.45,
+					stagger: 0.08
 				});
 			}
 		}, sectionRef);
@@ -62,7 +62,7 @@ export function Contact() {
 		<section
 			ref={sectionRef}
 			id="contact"
-			className="py-16 sm:py-24 md:py-32 pb-8 sm:pb-16 px-2 sm:px-4 md:px-6 text-slate-900 dark:text-white relative overflow-hidden"
+			className="py-16 sm:py-24 md:py-32 pb-8 sm:pb-16 px-2 sm:px-4 md:px-6 text-slate-900 dark:text-white relative overflow-hidden scroll-mt-24"
 		>
 			<div className="max-w-7xl mx-auto relative z-10 w-full">
 				{/* Header Section */}
@@ -106,7 +106,7 @@ export function Contact() {
 				{/* Info Grid */}
 				<div
 					ref={infoRef}
-					className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-10 sm:mb-16"
+					className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-10 sm:mb-16"
 				>
 					<div className="group relative h-full">
 						<div className="absolute inset-0 bg-gradient-to-br from-slate-200/20 to-slate-300/20 dark:from-slate-600/20 dark:to-slate-800/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
@@ -120,7 +120,7 @@ export function Contact() {
 								</h4>
 								<a
 									href="mailto:codewithdeepak95@gmail.com"
-									className="text-slate-600 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-colors text-lg font-medium leading-tight"
+									className="text-slate-600 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-colors text-base sm:text-lg font-medium leading-tight break-all"
 								>
 									codewithdeepak95@gmail.com
 								</a>

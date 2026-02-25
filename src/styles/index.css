@@ -16,6 +16,20 @@
 	animation: spin-slow 20s linear infinite;
 }
 
+@keyframes soft-blink {
+	0%,
+	100% {
+		opacity: 0.62;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+.animate-soft-blink {
+	animation: soft-blink 2.4s ease-in-out infinite;
+}
+
 /* Perspective for 3D transforms */
 .perspective-1000 {
 	perspective: 1000px;

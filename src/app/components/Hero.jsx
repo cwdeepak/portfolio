@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import { FiArrowRight, FiGithub, FiLinkedin, FiMapPin, FiDownload } from 'react-icons/fi';
+import { FiArrowRight, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { FaReact, FaJs, FaCss3Alt, FaHtml5, FaNodeJs, FaFigma } from 'react-icons/fa';
 import { SiTailwindcss, SiNextdotjs, SiTypescript } from 'react-icons/si';
 import CopyEmail from './CopyEmail';
@@ -17,6 +17,34 @@ export function Hero() {
 	const buttonsRef = useRef(null);
 	const socialRef = useRef(null);
 	const [imageLoaded, setImageLoaded] = useState(false);
+	const orbitItems = 8;
+
+	const getOrbitRadius = expanded => {
+		const isLg = typeof window !== 'undefined' ? window.innerWidth >= 1280 : false;
+		if (expanded) return isLg ? 210 : 178;
+		return isLg ? 168 : 146;
+	};
+
+	const setSkillOrbit = ({ radius, animate = false, opacity, scale, rotation = 0, duration = 0.35 }) => {
+		skillsRef.current.forEach((el, index) => {
+			if (!el || index >= orbitItems) return;
+			const angle = (index / orbitItems) * 360 - 90;
+			const radian = (angle * Math.PI) / 180;
+			const x = Math.cos(radian) * radius;
+			const y = Math.sin(radian) * radius;
+			const vars = { x, y, duration, ease: 'power2.out' };
+
+			if (opacity !== undefined) vars.opacity = opacity;
+			if (scale !== undefined) vars.scale = scale;
+			if (rotation !== undefined) vars.rotation = rotation;
+
+			if (animate) {
+				gsap.to(el, vars);
+			} else {
+				gsap.set(el, { x, y, opacity, scale, rotation });
+			}
+		});
+	};
 
 	useEffect(() => {
 		const tl = gsap.timeline();
@@ -38,49 +66,16 @@ export function Hero() {
 			}
 		);
 
-		// Set skills initial state - start visible and at larger radius
+		// Keep skill chips hidden until hover on desktop
 		gsap.set(skillsRef.current.filter(Boolean), {
-			opacity: 1,
-			scale: 1,
+			opacity: 0,
+			scale: 0,
 			rotation: 0
 		});
+		setSkillOrbit({ radius: getOrbitRadius(false), animate: false, opacity: 0, scale: 0, rotation: 0 });
 
 		// Animate elements in sequence
 		tl.to(imageRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
-			.to(
-				skillsRef.current.filter(Boolean),
-				{
-					x: (i, el) => {
-						const index = skillsRef.current.indexOf(el);
-						const angle = index * 45 - 90;
-						const radius = 160;
-						const radian = (angle * Math.PI) / 180;
-						return Math.cos(radian) * radius;
-					},
-					y: (i, el) => {
-						const index = skillsRef.current.indexOf(el);
-						const angle = index * 45 - 90;
-						const radius = 160;
-						const radian = (angle * Math.PI) / 180;
-						return Math.sin(radian) * radius;
-					},
-					duration: 0.8,
-					ease: 'power2.in'
-				},
-				0
-			)
-			.to(
-				skillsRef.current.filter(Boolean),
-				{
-					opacity: 0,
-					scale: 0,
-					rotation: -180,
-					duration: 0.8,
-					ease: 'power2.in',
-					stagger: 0.1
-				},
-				'+=0'
-			)
 			.to(titleRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0)
 			.to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.3')
 			.to(descriptionRef.current, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.3')
@@ -100,30 +95,13 @@ export function Hero() {
 	useEffect(() => {
 		const setDesktopSkillPositions = () => {
 			if (!skillsRef.current) return;
-			const isLg = window.innerWidth >= 1024;
-			const baseRadius = isLg ? 180 : 120;
-			skillsRef.current.forEach((el, index) => {
-				if (el) {
-					const angle = index * 45 - 90;
-					const radian = (angle * Math.PI) / 180;
-					const x = Math.cos(radian) * baseRadius;
-					const y = Math.sin(radian) * baseRadius;
-					gsap.set(el, { x, y });
-				}
-			});
+			setSkillOrbit({ radius: getOrbitRadius(false), animate: false, opacity: 0, scale: 0, rotation: 0 });
 		};
 
 		setDesktopSkillPositions();
 		window.addEventListener('resize', setDesktopSkillPositions);
 		return () => window.removeEventListener('resize', setDesktopSkillPositions);
 	}, []);
-
-	const scrollToSection = id => {
-		const element = document.getElementById(id);
-		if (element) {
-			element.scrollIntoView({ behavior: 'smooth' });
-		}
-	};
 
 	const skills = [
 		{ icon: FaReact, name: 'React' },
@@ -138,16 +116,14 @@ export function Hero() {
 	];
 
 	return (
-		<section ref={heroRef} className="min-h-screen relative overflow-hidden px-2 sm:px-4 md:px-6">
+		<section
+			id="hero"
+			ref={heroRef}
+			className="min-h-screen relative overflow-hidden px-2 sm:px-4 md:px-6 scroll-mt-24 pt-[calc(env(safe-area-inset-top)+88px)] md:pt-0"
+		>
 			<div className="relative z-10 min-h-screen flex flex-col w-full">
-				{/* Top Section - Navigation & Status */}
-				<div className="flex justify-between items-start p-4 sm:p-6 lg:p-8 xl:p-12">
-					<div ref={subtitleRef} className="flex items-center gap-1.5 sm:gap-2 lg:gap-3">
-						<div className="w-1.5 h-1.5 sm:w-2 sm:h-2 lg:w-3 lg:h-3 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-						<span className="text-green-400 text-[10px] sm:text-xs lg:text-sm font-medium tracking-wide uppercase">
-							Available for Projects
-						</span>
-					</div>
+				{/* Top Section - Status */}
+				<div className="hidden md:flex justify-end items-start p-4 sm:p-6 lg:p-8 xl:p-12">
 					<div className="text-right">
 						<div className="text-slate-600 dark:text-white/60 text-[10px] sm:text-xs mb-0.5 lg:mb-1">Currently in</div>
 						<div className="text-slate-900 dark:text-white font-semibold text-xs sm:text-sm lg:text-base">
@@ -157,13 +133,19 @@ export function Hero() {
 				</div>
 
 				{/* Main Content Area */}
-				<div className="flex-1 flex items-center">
+				<div className="flex-1 flex items-start md:items-center pt-5 sm:pt-6 md:pt-0">
 					<div className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12">
 						<div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-center">
 							{/* Left Column - Main Content */}
 							<div className="lg:col-span-8 space-y-6 sm:space-y-8">
 								{/* Greeting */}
 								<div ref={titleRef} className="space-y-2 pt-6 sm:pt-8 md:pt-0 text-center md:text-left">
+									<div ref={subtitleRef} className="flex items-center gap-2 justify-center md:justify-start mb-2">
+										<span className="w-2 h-2 bg-green-400 rounded-full shadow-[0_0_8px_rgba(74,222,128,0.5)] animate-soft-blink"></span>
+										<span className="text-green-400/95 text-[11px] sm:text-xs font-medium tracking-wide uppercase animate-soft-blink">
+											Available for Projects
+										</span>
+									</div>
 									<div className="text-slate-700 dark:text-white/80 text-lg sm:text-xl font-light">Hello, I'm</div>
 									<h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-none">
 										<span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-blue-100 dark:to-white bg-clip-text text-transparent animate-pulse">
@@ -204,22 +186,23 @@ export function Hero() {
 								</div>
 
 								{/* CTA Actions */}
-								<div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 pt-4">
-									<button
-										onClick={() => scrollToSection('work')}
-										className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl text-white font-semibold text-base sm:text-lg overflow-hidden shadow-2xl shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105"
+								<div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 pt-4 sm:items-center">
+									<a
+										href="#work"
+										className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl text-white font-semibold text-base sm:text-lg overflow-hidden shadow-2xl shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 z-10 touch-manipulation"
 									>
 										<span className="relative z-10 flex items-center gap-3">
 											Explore My Work
 											<FiArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
 										</span>
 										<div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-									</button>
+									</a>
 
 									<a
 										href="/resume.pdf"
-										download
-										className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-slate-900/30 dark:border-white/30 rounded-2xl text-slate-900 dark:text-white font-semibold text-base sm:text-lg hover:bg-slate-900/10 dark:hover:bg-white/10 hover:border-slate-900/50 dark:hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-slate-900/30 dark:border-white/30 rounded-2xl text-slate-900 dark:text-white font-semibold text-base sm:text-lg hover:bg-slate-900/10 dark:hover:bg-white/10 hover:border-slate-900/50 dark:hover:border-white/50 transition-all duration-300 backdrop-blur-sm text-center touch-manipulation"
 									>
 										Download Resume
 									</a>
@@ -232,102 +215,36 @@ export function Hero() {
 								<div
 									className="relative w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-[340px] xl:h-[340px] mx-auto group/image"
 									onMouseEnter={() => {
-										// Only animate skills on md+ screens
-										if (window.innerWidth >= 768) {
-											// Animate skills in and expand circle when hovering over image
-											gsap.to(skillsRef.current.filter(Boolean), {
-												opacity: 1,
-												scale: 1,
-												rotation: 0,
-												zIndex: 20,
-												duration: 0.4,
-												ease: 'back.out(1.7)',
-												stagger: {
-													amount: 0.2,
-													from: 'start'
-												},
-												onStart: () => {
-													// Update positions to larger radius
-													skillsRef.current.forEach((skill, index) => {
-														if (skill) {
-															const angle = index * 45 - 90;
-															const radius = 200; // Expanded radius for larger desktop profiles
-															const radian = (angle * Math.PI) / 180;
-															const x = Math.cos(radian) * radius;
-															const y = Math.sin(radian) * radius;
-															gsap.to(skill, {
-																x: x,
-																y: y,
-																duration: 0.4,
-																ease: 'power2.out'
-															});
-														}
-													});
-												}
-											});
-										}
+										if (window.innerWidth < 1024) return;
+										setSkillOrbit({
+											radius: getOrbitRadius(true),
+											animate: true,
+											opacity: 1,
+											scale: 1,
+											rotation: 0,
+											duration: 0.32
+										});
 									}}
 									onMouseLeave={() => {
-										// Only animate skills on md+ screens
-										if (window.innerWidth >= 768) {
-											// Animate skills out and shrink circle when mouse leaves
-											gsap.to(skillsRef.current.filter(Boolean), {
-												opacity: 0,
-												scale: 0,
-												rotation: -180,
-												zIndex: 0,
-												duration: 0.3,
-												ease: 'power2.in',
-												stagger: {
-													amount: 0.1,
-													from: 'end'
-												},
-												onStart: () => {
-													// Update positions back to smaller radius
-													skillsRef.current.forEach((skill, index) => {
-														if (skill) {
-															const angle = index * 45 - 90;
-															const radius = 150; // Base radius for larger layout
-															const radian = (angle * Math.PI) / 180;
-															const x = Math.cos(radian) * radius;
-															const y = Math.sin(radian) * radius;
-															gsap.to(skill, {
-																x: x,
-																y: y,
-																duration: 0.3,
-																ease: 'power2.in'
-															});
-														}
-													});
-												}
-											});
-										}
+										if (window.innerWidth < 1024) return;
+										setSkillOrbit({
+											radius: getOrbitRadius(false),
+											animate: true,
+											opacity: 0,
+											scale: 0,
+											rotation: -90,
+											duration: 0.24
+										});
 									}}
 								>
 									{/* Skills positioned around the profile image - only show on md and larger screens */}
 									<div className="hidden md:block">
 										{skills.slice(0, 8).map((skill, index) => {
-											const angle = index * 45 - 90; // Start from top, 45 degrees apart
-											const radius = 150; // Distance from center for desktop
-											const radian = (angle * Math.PI) / 180;
-											const x = Math.cos(radian) * radius;
-											const y = Math.sin(radian) * radius;
-
 											return (
 												<div
 													key={index}
 													ref={el => {
-														if (el) {
-															if (!skillsRef.current) skillsRef.current = [];
-															skillsRef.current[index] = el;
-															// Set initial position at larger radius
-															const angle = index * 45 - 90;
-															const radius = 130;
-															const radian = (angle * Math.PI) / 180;
-															const x = Math.cos(radian) * radius;
-															const y = Math.sin(radian) * radius;
-															gsap.set(el, { x: x, y: y });
-														}
+														if (el) skillsRef.current[index] = el;
 													}}
 													className="absolute top-1/2 left-1/2 w-10 h-10 -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-0"
 												>
@@ -388,9 +305,9 @@ export function Hero() {
 					ref={socialRef}
 					className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-4 sm:py-6 lg:py-8 xl:py-12 mb-6 sm:mb-8"
 				>
-					<div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+					<div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-4 sm:gap-5">
 						{/* Social Links */}
-						<div className="flex gap-4">
+						<div className="flex gap-4 justify-center lg:justify-start">
 							<a
 								href="https://github.com/cwdeepak"
 								target="_blank"
@@ -410,9 +327,9 @@ export function Hero() {
 						</div>
 
 						{/* Contact */}
-						<div ref={contactRef} className="flex flex-col items-center gap-2">
+						<div ref={contactRef} className="flex flex-col items-center lg:items-end gap-2">
 							<CopyEmail />
-							<div className="text-slate-500 dark:text-white/60 text-sm text-center">
+							<div className="text-slate-500 dark:text-white/60 text-sm text-center lg:text-right">
 								Let's build something amazing together
 							</div>
 						</div>

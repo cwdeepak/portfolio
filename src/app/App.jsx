@@ -14,24 +14,12 @@ export default function App() {
 			<div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 antialiased selection:bg-indigo-600 selection:text-white dark:selection:bg-indigo-500 dark:selection:text-white transition-colors duration-300 scroll-smooth">
 				<Header />
 				<main>
-					<section id="hero">
-						<Hero />
-					</section>
-					<section id="work">
-						<Projects />
-					</section>
-					<section id="skills">
-						<Skills />
-					</section>
-					<section id="experience">
-						<Experience />
-					</section>
-					<section id="certifications">
-						<Certifications />
-					</section>
-					<section id="contact">
-						<Contact />
-					</section>
+					<Hero />
+					<Projects />
+					<Skills />
+					<Experience />
+					<Certifications />
+					<Contact />
 				</main>
 				<Footer />
 			</div>

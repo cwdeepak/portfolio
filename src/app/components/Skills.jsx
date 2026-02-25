@@ -14,49 +14,34 @@ export function Skills() {
 
 	useEffect(() => {
 		const ctx = gsap.context(() => {
-			// Animate header
 			if (headerRef.current) {
 				gsap.from(headerRef.current.children, {
 					scrollTrigger: {
 						trigger: sectionRef.current,
-						start: 'top 80%'
+						start: 'top 82%',
+						once: true
 					},
-					y: 40,
+					y: 24,
 					opacity: 0,
-					duration: 0.8,
-					stagger: 0.1,
-					ease: 'power3.out'
+					duration: 0.5,
+					stagger: 0.08
 				});
 			}
 
-			// Initial spread animation - skills start scattered
 			skillsRef.current.forEach((skill, index) => {
-				if (skill) {
-					// Set initial random positions
-					gsap.set(skill, {
-						x: (Math.random() - 0.5) * 200,
-						y: (Math.random() - 0.5) * 200,
-						rotation: (Math.random() - 0.5) * 30,
-						scale: 0.8,
-						opacity: 0
-					});
-
-					// Animate to arranged position on scroll
-					gsap.to(skill, {
-						scrollTrigger: {
-							trigger: skill,
-							start: 'top 90%'
-						},
-						x: 0,
-						y: 0,
-						rotation: 0,
-						scale: 1,
-						opacity: 1,
-						duration: 1,
-						delay: index * 0.1,
-						ease: 'back.out(1.7)'
-					});
-				}
+				if (!skill) return;
+				gsap.from(skill, {
+					scrollTrigger: {
+						trigger: skill,
+						start: 'top 90%',
+						once: true
+					},
+					y: 20,
+					opacity: 0,
+					scale: 0.94,
+					duration: 0.42,
+					delay: index * 0.04
+				});
 			});
 		}, sectionRef);
 
@@ -82,7 +67,7 @@ export function Skills() {
 	];
 
 	return (
-		<section id="skills" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden" ref={sectionRef}>
+		<section id="skills" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden scroll-mt-24" ref={sectionRef}>
 			<div className="max-w-7xl mx-auto relative z-10">
 				<div className="text-center mb-16 sm:mb-24" ref={headerRef}>
 					<div className="badge inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-green-500/10 to-teal-500/10 dark:from-green-500/20 dark:to-teal-500/20 border border-green-200/50 dark:border-green-800/50 rounded-full text-sm tracking-widest text-green-600 dark:text-green-400 uppercase mb-6 backdrop-blur-sm">
@@ -98,7 +83,7 @@ export function Skills() {
 					</p>
 				</div>
 
-				<div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16">
+				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16">
 					{skills.map((skill, index) => (
 						<div
 							key={index}
@@ -116,7 +101,7 @@ export function Skills() {
 				{/* Currently Learning Section */}
 				<div className="text-center mt-8">
 					<h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-8">Currently Learning</h3>
-					<div className="flex justify-center gap-8">
+					<div className="flex flex-wrap justify-center gap-6 sm:gap-8">
 						{learningSkills.map((skill, index) => (
 							<div key={index} className="group flex flex-col items-center text-center">
 								<div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 backdrop-blur-sm flex items-center justify-center mb-2 sm:mb-3 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-dashed border-slate-400 dark:border-slate-500">

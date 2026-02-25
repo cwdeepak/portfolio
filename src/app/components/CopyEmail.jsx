@@ -62,7 +62,7 @@ export default function CopyEmail() {
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				className="
-          flex items-center gap-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-slate-200/60 dark:border-slate-800/60 hover:border-slate-300 dark:hover:border-slate-700 transition-colors
+          flex items-center gap-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-slate-200/60 dark:border-slate-800/60 hover:border-slate-300 dark:hover:border-slate-700 transition-colors max-w-[92vw] sm:max-w-none
         "
 			>
 				{copied ? (
@@ -71,7 +71,7 @@ export default function CopyEmail() {
 					<FiMail className="w-4 h-4 text-slate-500 dark:text-slate-400" />
 				)}
 
-				<span>{email}</span>
+				<span className="text-xs sm:text-sm break-all">{email}</span>
 			</button>
 
 			{/* Tooltip */}
