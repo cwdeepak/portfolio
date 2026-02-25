@@ -87,7 +87,7 @@ export function Projects() {
 	return (
 		<section
 			id="work"
-			className="py-16 sm:py-24 md:py-32 px-2 sm:px-4 md:px-6 relative overflow-hidden scroll-mt-24"
+			className="py-16 sm:py-24 md:py-32 px-3 sm:px-4 md:px-6 relative overflow-hidden scroll-mt-24"
 			ref={sectionRef}
 		>
 			<div className="max-w-7xl mx-auto relative z-10 w-full">
@@ -108,12 +108,12 @@ export function Projects() {
 				</div>
 
 				{/* Projects Grid */}
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8 md:gap-10 pb-2 sm:pb-0">
 					{projects.map((project, index) => {
 						return (
 							<div
 								key={index}
-								className="group relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-2xl shadow-slate-900/10 hover:shadow-3xl hover:shadow-slate-900/20 transition-all duration-500 overflow-hidden cursor-pointer"
+								className="group relative mx-1 sm:mx-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-2xl shadow-slate-900/10 hover:shadow-3xl hover:shadow-slate-900/20 transition-all duration-500 overflow-hidden cursor-pointer"
 								ref={el => (projectsRef.current[index] = el)}
 							>
 								{/* Project Image */}
